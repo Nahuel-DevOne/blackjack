@@ -5,11 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlackJack ♣️</title>
+    <!-- Enlace al CSS de Bootstrap local -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- Enlace a CSS local -->
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
-    <h1>BlackJack</h1>
+<body class="fondo">
+    <header class="bg-dark bg-gradient justify-content-center align-items-center">
+        <h1 class="text-white text-center display-3 p-3">BlackJack❤️</h1>
+    </header>
 
+    <div class="row mt-2">
+        <div class="col text-center">
+            <button class="bg-danger bg-gradient text-center p-2 rounded">Nuevo Juego</button>
+            <button class="bg-dark bg-gradient text-center p-2 rounded">Pedir Carta</button>
+            <button class="bg-primary bg-gradient text-center p-2 rounded">Detener</button>
+        </div>
+    </div>
+
+    <div class="row container mt-2">
+        <div class="col">
+            <h2>Jugador 1 - <small>0</small></h2>
+            <div id="jugador-cartas">
+                <!-- <img class="carta" src="assets/cartas/2C.png" alt="">
+                <img class="carta" src="assets/cartas/2C.png" alt="">
+                <img class="carta" src="assets/cartas/2C.png" alt="">
+                <img class="carta" src="assets/cartas/2C.png" alt=""> -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="row container mt-2">
+        <div class="col">
+            <h2>Computadora - <small>0</small></h2>
+            <div id="computadora-cartas">
+                <!-- <img class="carta" src="assets/cartas/3C.png" alt="">
+                <img class="carta" src="assets/cartas/3C.png" alt="">
+                <img class="carta" src="assets/cartas/3C.png" alt="">
+                <img class="carta" src="assets/cartas/3C.png" alt=""> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Enlace al JS de Bootstrap local -->
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Enlace al JS local -->
     <script src="assets/js/juego.js"></script>
 </body>
 </html>

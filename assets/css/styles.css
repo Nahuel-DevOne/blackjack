@@ -1,0 +1,22 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    color: white;
+}
+
+.fondo{
+    background-color: #2f4f30;
+}
+
+.carta{
+    width: 15vw;
+    height: auto;
+    position: relative;
+    left: 10vw;
+    margin-left: -3vw;
+}
+
+#jugador-cartas, #computadora-cartas{
+    height: 20vh;
+}

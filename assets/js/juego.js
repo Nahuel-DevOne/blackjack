@@ -1,63 +1,12 @@
-/** Esta forma no es eficiente */
-// 'red_back.png'
-// '2C.png'
-// '2D.png'
-// '2H.png'
-// '2S.png'
-// '3C.png'
-// '3D.png'
-// '3H.png'
-// '3S.png'
-// '4C.png'
-// '4D.png'
-// '4H.png'
-// '4S.png'
-// '5C.png'
-// '5D.png'
-// '5H.png'
-// '5S.png'
-// '6C.png'
-// '6D.png'
-// '6H.png'
-// '6S.png'
-// '7C.png'
-// '7D.png'
-// '7H.png'
-// '7S.png'
-// '8C.png'
-// '8D.png'
-// '8H.png'
-// '8S.png'
-// '9C.png'
-// '9D.png'
-// '9H.png'
-// '9S.png'
-// '10C.png'
-// '10D.png'
-// '10H.png'
-// '10S.png'
-// 'AC.png'
-// 'AD.png'
-// 'AH.png'
-// 'AS.png'
-// 'grey_back.png'
-// 'JC.png'
-// 'JD.png'
-// 'JH.png'
-// 'JS.png'
-// 'KC.png'
-// 'KD.png'
-// 'KH.png'
-// 'KS.png'
-// 'QC.png'
-// 'QD.png'
-// 'QH.png'
-// 'QS.png'
+/** C: clubs (tréboles), D: diamonds (diamantes, H: hearts (corazones), S: spades (espadas) */
 
+// Inicializando el deck como un arreglo vacío, como variable let, porque después se va a manipular
 let deck = [];
+// Creando el array de tipos de cartas
 const tipos = ['C', 'D', 'H', 'S'];
+// Creando el array con las cartas especiales
 const especiales = ['A', 'J', 'Q', 'K'];
-
+// Crea un nuevo deck
 const crearDeck = () => {
 
     for(let i = 2; i <= 10; i++){
@@ -73,9 +22,10 @@ const crearDeck = () => {
             deck.push(especial + tipo)
         }
     }
+    // Deck ordenado, sin barajear
+    // console.log(deck);
 
-    console.log(deck);
-
+    // Deck mezclado o barajeado
     deck = _.shuffle(deck)
     console.log(deck);
 
@@ -83,4 +33,22 @@ const crearDeck = () => {
 }
 
 crearDeck()
+
+// Permite tomar una carta
+const pedirCarta = () => {
+
+    if (deck.length === 0) {
+        throw 'No hay más cartas en el deck';
+    }
+
+    const carta = deck.pop();
+    
+    console.log(deck)
+    console.log(carta); // Una carta aleatoria de la baraja
+    return carta;
+}
+
+pedirCarta();
+
+
 

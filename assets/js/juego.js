@@ -1,11 +1,22 @@
 /** C: clubs (tréboles), D: diamonds (diamantes, H: hearts (corazones), S: spades (espadas) */
 
+/********** Variables y constantes **********/
+
 // Inicializando el deck como un arreglo vacío, como variable let, porque después se va a manipular
 let deck = [];
 // Creando el array de tipos de cartas
 const tipos = ['C', 'D', 'H', 'S'];
 // Creando el array con las cartas especiales
 const especiales = ['A', 'J', 'Q', 'K'];
+// Puntos del jugador
+let puntosJugador = 0,
+    puntosComputadora = 0; // Puntos de la computadora
+
+/********** Selectores o referencias al HTML **********/
+// Selector de btnPedir
+const btnPedir = document.querySelector('#btnPedir');
+const puntosHTML = document.querySelectorAll('small')
+
 // Crea un nuevo deck
 const crearDeck = () => {
 
@@ -67,7 +78,16 @@ const valorCarta = carta => {
     // }
 }
 
-const valor = valorCarta(pedirCarta());
-console.log({valor});
+// const valor = valorCarta(pedirCarta());
+// console.log({valor});
+
+/********** Eventos **********/
+btnPedir.addEventListener('click', () => {
+    
+    const carta = pedirCarta();
+
+    puntosJugador = puntosJugador + valorCarta(carta);
+    puntosHTML[0].innerText = puntosJugador;
+})
 
 

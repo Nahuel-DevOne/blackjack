@@ -15,8 +15,10 @@ let puntosJugador = 0,
 /********** Selectores o referencias al HTML **********/
 // Selector de btnPedir
 const btnPedir = document.querySelector('#btnPedir');
+const btnDetener = document.querySelector('#btnDetener');
 const puntosHTML = document.querySelectorAll('small');
 const divCartasJugador = document.querySelector('#jugador-cartas');
+const divCartasComputadora = document.querySelector('#computadora-cartas');
 
 // Crea un nuevo deck
 const crearDeck = () => {
@@ -82,6 +84,29 @@ const valorCarta = carta => {
 // const valor = valorCarta(pedirCarta());
 // console.log({valor});
 
+const turnoComputadora = puntosMinimos => {
+    
+    do {
+        const carta = pedirCarta();
+
+        puntosComputadora = puntosComputadora + valorCarta(carta);
+        puntosHTML[1].innerText = puntosComputadora;
+        /** <img class="carta" src="assets/cartas/2C.png" alt=""> así es como se debe crear la carta */
+        // Creando el elemento img para representar la imagen de la carta
+        const imgCarta = document.createElement('img');
+        // agregando el atributo src y la clase a la carta
+        imgCarta.src = `assets/cartas/${carta}.png`;
+        imgCarta.classList.add('carta')
+        // Insertando la carta al contenedor de la computadora
+        divCartasComputadora.appendChild(imgCarta);
+        // Si el jugador pasó de 21, con una sola carta que la computadora saque, gana.
+        if (puntosMinimos > 21) {
+            break;
+        }
+        
+    } while ((puntosComputadora < puntosMinimos) && puntosMinimos <= 21)
+}
+
 /********** Eventos **********/
 btnPedir.addEventListener('click', () => {
     
@@ -101,12 +126,20 @@ btnPedir.addEventListener('click', () => {
     if (puntosJugador > 21) {
         console.warn('Lo siento mucho, perdiste')
         btnPedir.disabled = true;
+        btnDetener.disabled = true;
+        turnoComputadora(puntosJugador);
     } else if (puntosJugador === 21) {
         console.warn('21, genial!');
         btnPedir.disabled = true;
+        btnDetener.disabled = true;
+        turnoComputadora(puntosJugador);
     }
-
 
 })
 
+btnDetener.addEventListener('click', () => {
+    btnPedir.disabled = true;
+    btnDetener.disabled = true;
+    turnoComputadora(puntosJugador);
+})
 

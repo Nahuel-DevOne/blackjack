@@ -16,6 +16,7 @@ let puntosJugador = 0,
 // Selector de btnPedir
 const btnPedir = document.querySelector('#btnPedir');
 const btnDetener = document.querySelector('#btnDetener');
+const btnNuevo = document.querySelector('#btnNuevo');
 const puntosHTML = document.querySelectorAll('small');
 const divCartasJugador = document.querySelector('#jugador-cartas');
 const divCartasComputadora = document.querySelector('#computadora-cartas');
@@ -36,8 +37,6 @@ const crearDeck = () => {
             deck.push(especial + tipo)
         }
     }
-    // Deck ordenado, sin barajear
-    // console.log(deck);
 
     // Deck mezclado o barajeado
     deck = _.shuffle(deck)
@@ -70,8 +69,7 @@ const valorCarta = carta => {
     // Optimizando el código con ternarios
     return (isNaN(valor)) ? 
         (valor === 'A') ? 11 : 10 
-        : valor * 1;
-    
+        : valor * 1;    
     // let puntos = 0;
     // if ( isNaN(valor) ) {        
     //     puntos = (valor === 'A') ? 11 : 10;
@@ -105,6 +103,20 @@ const turnoComputadora = puntosMinimos => {
         }
         
     } while ((puntosComputadora < puntosMinimos) && puntosMinimos <= 21)
+
+    setTimeout(() => {
+        
+        if (puntosComputadora === puntosMinimos){
+            alert('¡Empate!');
+        } else if (puntosMinimos > 21){
+            alert('¡La computadora gana!');
+        } else if (puntosComputadora > 21){
+            alert('¡Ganaste!');
+        } else {
+            alert('¡La computadora gana!');
+        }
+    }, 1000)
+
 }
 
 /********** Eventos **********/
@@ -142,4 +154,25 @@ btnDetener.addEventListener('click', () => {
     btnDetener.disabled = true;
     turnoComputadora(puntosJugador);
 })
+
+btnNuevo.addEventListener('click', () => {
+
+    console.clear();
+    deck = [];
+    deck = crearDeck();
+    
+    puntosJugador = 0;
+    puntosComputadora = 0;
+    
+    puntosHTML[0].innerText = 0;
+    puntosHTML[1].innerText = 0;
+    
+    divCartasJugador.innerText = '';
+    divCartasComputadora.innerText = '';
+
+    btnPedir.disabled = false;
+    btnDetener.disabled = false;
+})
+
+
 

@@ -3,9 +3,9 @@
 /** Patrón módulo, o función anónima autoinvocada IIFE:
  * está ubicado en algún lugar de memoria, sin identificador por nombre
  * Sirve para proteger el código
- *
+ * Optimized code, done
  * */
-(() => {
+const miModulo = (() => {
   "use strict";
   /********** Variables y constantes **********/
   // Inicializando el deck como un arreglo vacío, como variable let, porque después se va a manipular
@@ -14,9 +14,6 @@
   const tipos = ["C", "D", "H", "S"],
         // Creando el array con las cartas especiales
         especiales = ["A", "J", "Q", "K"];
-  // // Puntos del jugador
-  // let puntosJugador = 0,
-  //   puntosComputadora = 0; // Puntos de la computadora
   // Puntos de los jugadores
   let puntosJugadores = [];
 
@@ -26,16 +23,23 @@
         btnNuevo = document.querySelector("#btnNuevo");
   
   const puntosHTML = document.querySelectorAll("small");
-
   const divCartasJugadores = document.querySelectorAll('.divCartas')
+        
 
   // Esta función inicialize  el juego
   const inicializarJuego = ( numJugadores = 2 ) => {    
     deck = crearDeck();
-    // console.log({numJugadores});
+    puntosJugadores = [];
+    
     for(let i = 0; i < numJugadores; i++){
       puntosJugadores.push(0);
     }
+
+    puntosHTML.forEach( elem => elem.innerText = 0 );
+    divCartasJugadores.forEach( elem => elem.innerHTML = '' );
+
+    btnPedir.disabled   = false;
+    btnDetener.disabled = false;
   }      
 
   // Crea un nuevo deck
@@ -70,7 +74,9 @@
   const valorCarta = (carta) => {
     const valor = carta.substring(0, carta.length - 1);
     // Optimizando el código con ternarios
-    return isNaN(valor) ? (valor === "A") ? 11 : 10 : valor * 1;
+    return isNaN(valor) ? 
+            (valor === "A") ? 11 : 10 
+            : valor * 1;
   };
 
   // Turno: 0 = primer jugador y el último va a ser la computadora
@@ -78,7 +84,7 @@
     puntosJugadores[turno] = puntosJugadores[turno] + valorCarta(carta);
     puntosHTML[turno].innerText = puntosJugadores[turno];
 
-    return puntosJugador[turno];
+    return puntosJugadores[turno];
   }
 
   const crearCarta = (carta, turno) => {
@@ -91,22 +97,10 @@
     divCartasJugadores[turno].append(imgCarta);
   }
 
-  // turno de la computadora
-  const turnoComputadora = (puntosMinimos) => {
+  // Determina el ganador
+  const determinarGanador = () => {
 
-    let puntosComputadora = 0;
-
-    do {
-      const carta = pedirCarta();
-      puntosComputadora = acumularPuntos(carta, puntosJugadores.length - 1);
-
-      crearCarta(carta, puntosJugadores.length - 1);
-      
-      // Si el jugador pasó de 21, con una sola carta que la computadora saque, gana.
-      if (puntosMinimos > 21) {
-        break;
-      }
-    } while (puntosComputadora < puntosMinimos && puntosMinimos <= 21);
+    const [puntosMinimos, puntosComputadora] = puntosJugadores;
 
     setTimeout(() => {
       if (puntosComputadora === puntosMinimos) {
@@ -118,7 +112,24 @@
       } else {
         alert("¡La computadora gana!");
       }
-    }, 1000);
+    }, 500);
+
+
+  }
+
+  // turno de la computadora
+  const turnoComputadora = (puntosMinimos) => {
+
+    let puntosComputadora = 0;
+
+    do {
+      const carta = pedirCarta();
+      puntosComputadora = acumularPuntos(carta, puntosJugadores.length - 1);
+      crearCarta(carta, puntosJugadores.length - 1);
+      
+    } while ((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
+
+    determinarGanador();
   };
 
   /********** Eventos **********/
@@ -144,23 +155,16 @@
   btnDetener.addEventListener("click", () => {
     btnPedir.disabled = true;
     btnDetener.disabled = true;
-    turnoComputadora(puntosJugador);
+    turnoComputadora(puntosJugadores[0]);
   });
 
-  btnNuevo.addEventListener("click", () => {
-    console.clear();
-    inicializarJuego();
+  // btnNuevo.addEventListener("click", () => {
+  //   console.clear();
+  //   inicializarJuego();
+  // });
 
-    // puntosJugador = 0;
-    // puntosComputadora = 0;
+  return {
+    nuevoJuego: inicializarJuego
+  };
 
-    // puntosHTML[0].innerText = 0;
-    // puntosHTML[1].innerText = 0;
-
-    // divCartasJugador.innerText = "";
-    // divCartasComputadora.innerText = "";
-
-    // btnPedir.disabled = false;
-    // btnDetener.disabled = false;
-  });
 })();

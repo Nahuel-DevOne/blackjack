@@ -3,7 +3,6 @@
 /** Patrón módulo, o función anónima autoinvocada IIFE:
  * está ubicado en algún lugar de memoria, sin identificador por nombre
  * Sirve para proteger el código
- * Optimized code, done
  * */
 const miModulo = (() => {
   "use strict";
@@ -113,8 +112,6 @@ const miModulo = (() => {
         alert("¡La computadora gana!");
       }
     }, 500);
-
-
   }
 
   // turno de la computadora
@@ -158,11 +155,7 @@ const miModulo = (() => {
     turnoComputadora(puntosJugadores[0]);
   });
 
-  // btnNuevo.addEventListener("click", () => {
-  //   console.clear();
-  //   inicializarJuego();
-  // });
-
+  // Público
   return {
     nuevoJuego: inicializarJuego
   };
